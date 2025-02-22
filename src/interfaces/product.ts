@@ -1,7 +1,6 @@
 import { User } from './user';
 
 export interface Product extends Document {
-    id: string;
     name: string;
     description: string;
     img: string;
@@ -10,5 +9,5 @@ export interface Product extends Document {
     isOnDiscount: boolean;
     discountPrice: number;
     ishidden: boolean;
-    _createdBy: User['id'];
+    _createdBy: User["id"];
 }

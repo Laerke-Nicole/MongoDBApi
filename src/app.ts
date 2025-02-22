@@ -9,6 +9,10 @@ dotenvFlow.config();
 const app: Application = express();
 
 export function startServer() {
+
+    // json body parser
+    app.use(express.json());
+
     // bind routes to the app
     // /api route in url
     app.use('/api', routes);
@@ -19,6 +23,6 @@ export function startServer() {
     // PORT has to either be defined in .env file or 4000
     const PORT:number = parseInt(process.env.PORT as string) || 4000;
     app.listen(PORT, function() {
-        console.log("Server is running on port: ", PORT);
+        console.log("Server is running on port: " + PORT);
     })
 }

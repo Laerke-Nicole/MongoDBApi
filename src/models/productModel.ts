@@ -40,4 +40,4 @@ productSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
     update.$inc.__v = 1;
 });
 
-export const productModel = model<Product>('Product', productSchema);
+export const productModel = model<Product>("Product", productSchema);
