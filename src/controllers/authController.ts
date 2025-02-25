@@ -71,7 +71,58 @@ export async function registerUser(req: Request, res: Response) {
 * @returns
 */
 // login user
+export async function loginUser(req: Request, res: Response) {
+    try {
+        // validate user info
+        const { error } = validateUserLoginInfo(req.body);
 
+        if (error) {
+            res.status(400).json({ error: error.details[0].message });
+            return;
+        }
+
+
+        // find user
+        await connectToDB();
+
+        const user: User | null = await userModel.findOne({ email: req.body.email });
+
+        if (!user) {
+            res.status(400).json({ error: "Email or password is wrong." });
+            return;
+        }
+        // if theres a user
+        else {
+            // create auth token and send it back to the user
+            const validPassword: boolean = await bcrypt.compare(req.body.password, user.password);   
+
+            if (!validPassword) {
+                res.status(400).json({ error: "Email or password is wrong." });
+                return;
+            }
+
+            const userId: string = user.id;
+            const token: string = jwt.sign(
+                {
+                    // payload
+                    name: user.name,
+                    email: user.email,
+                    id: userId
+                },
+                process.env.TOKEN_SECRET as string,
+                { expiresIn: '2h' }
+            );
+            // attach token and send back to client
+            res.status(200).header("auth-token", token).json({ error: null, data: { userId, token } });
+        }
+    }
+    catch (error) {
+        res.status(500).send("Error logging user in. Error: " + error)
+    }
+    finally {
+        await disconnectToDB();
+    }
+}
 
 
 
