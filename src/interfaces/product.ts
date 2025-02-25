@@ -3,11 +3,11 @@ import { User } from './user';
 export interface Product extends Document {
     name: string;
     description: string;
-    img: string;
+    imageURL: string;
     price: number;
     stock: number;
-    isOnDiscount: boolean;
-    discountPrice: number;
+    discount: boolean;
+    discountPct: number;
     ishidden: boolean;
     _createdBy: User["id"];
 }
