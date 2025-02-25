@@ -125,6 +125,29 @@ export async function loginUser(req: Request, res: Response) {
 }
 
 
+/**
+* @param req
+* @param res
+* @param next
+*/
+// middleware logic that verifies token
+export function verifyToken(req: Request, res: Response, next: NextFunction) {
+    const token = req.header('auth-token');
+
+    if (!token) {
+        res.status(400).json({ error: "Access denied." });
+        return;
+    }
+
+    try {
+        if (token)
+            jwt.verify(token, process.env.TOKEN_SECRET as string);
+        next();
+    }
+    catch {
+        res.status(401).send("Invalid token");
+    }
+}
 
 
 

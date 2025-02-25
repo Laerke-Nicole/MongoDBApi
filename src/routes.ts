@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { createProduct, getAllProducts, getProductByID, updateProductByID, deleteProductByID } from './controllers/productController';
-import { registerUser } from './controllers/authController';
+import { registerUser, loginUser, verifyToken } from './controllers/authController';
 
 const router: Router = Router();
 
@@ -9,23 +9,22 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 // auth
-router.post('/user/register', registerUser)
+router.post('/user/register', registerUser);
+router.post('/user/login', loginUser);
 
 
 // CRUD
 // create router
-router.post('/products', createProduct);
+router.post('/products', verifyToken, createProduct);
 
 // get
 router.get('/products', getAllProducts);
-
-// get
 router.get('/products/:id', getProductByID);
 
 // update
-router.put('/products/:id', updateProductByID);
+router.put('/products/:id', verifyToken, updateProductByID);
 
 // delete
-router.put('/products/:id', deleteProductByID);
+router.put('/products/:id', verifyToken, deleteProductByID);
 
 export default router;
