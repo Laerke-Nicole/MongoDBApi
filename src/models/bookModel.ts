@@ -7,7 +7,7 @@ const bookSchema = new Schema<Book>({
     description: { type: String, required: true, min: 6, max: 1024 },
     genre: { type: String, required: true, min: 6, max: 255 },
     imageURL: { type: String, required: true },
-    releaseYear: { type: Number, required: true, min: 4, max: 4 },
+    releaseYear: { type: Number, required: true, min: 1000, max: 9999 },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
     discount: { type: Boolean, required: true, default: false },
@@ -16,6 +16,8 @@ const bookSchema = new Schema<Book>({
     _createdBy: { type: String, ref: 'User', required: true }
 });
 
+
+// define how its being updated in mongoose
 type UpdateQuery<T> = {
     [key: string]: any;
 } & {
@@ -25,6 +27,8 @@ type UpdateQuery<T> = {
     $inc?: { __v?: number };
 };
 
+
+// define book schema in mongoose  
 bookSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
     const update = this.getUpdate() as UpdateQuery<T>;
     if (update.__v != null) {
