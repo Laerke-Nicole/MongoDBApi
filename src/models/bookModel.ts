@@ -1,10 +1,13 @@
 import { Schema, model } from 'mongoose';
-import { Product } from '../interfaces/product';
+import { Book } from '../interfaces/book';
 
-const productSchema = new Schema<Product>({
-    name: { type: String, required: true, min: 6, max: 255 },
+const bookSchema = new Schema<Book>({
+    title: { type: String, required: true, min: 6, max: 255 },
+    author: { type: String, required: true, min: 6, max: 255 },
     description: { type: String, required: true, min: 6, max: 1024 },
+    genre: { type: String, required: true, min: 6, max: 255 },
     imageURL: { type: String, required: true },
+    releaseYear: { type: Number, required: true, min: 4, max: 4 },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
     discount: { type: Boolean, required: true, default: false },
@@ -22,7 +25,7 @@ type UpdateQuery<T> = {
     $inc?: { __v?: number };
 };
 
-productSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
+bookSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
     const update = this.getUpdate() as UpdateQuery<T>;
     if (update.__v != null) {
         delete update.__v;
@@ -40,4 +43,4 @@ productSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
     update.$inc.__v = 1;
 });
 
-export const productModel = model<Product>("Product", productSchema);
+export const bookModel = model<Book>("Book", bookSchema);

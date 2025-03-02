@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { createProduct, getAllProducts, getProductByID, updateProductByID, deleteProductByID } from './controllers/productController';
+import { createBook, getAllBooks, getBookByID, updateBookByID, deleteBookByID } from './controllers/bookController';
 import { registerUser, loginUser, verifyToken } from './controllers/authController';
 
 const router: Router = Router();
@@ -15,16 +15,16 @@ router.post('/user/login', loginUser);
 
 // CRUD
 // create router
-router.post('/products', verifyToken, createProduct);
+router.post('/books', verifyToken, createBook);
 
 // get
-router.get('/products', getAllProducts);
-router.get('/products/:id', getProductByID);
+router.get('/books', getAllBooks);
+router.get('/books/:id', getBookByID);
 
 // update
-router.put('/products/:id', verifyToken, updateProductByID);
+router.put('/books/:id', verifyToken, updateBookByID);
 
 // delete
-router.put('/products/:id', verifyToken, deleteProductByID);
+router.put('/books/:id', verifyToken, deleteBookByID);
 
 export default router;
