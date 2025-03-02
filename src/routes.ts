@@ -26,7 +26,7 @@ router.get('/books/:id', getBookByID);
 router.put('/books/:id', verifyToken, updateBookByID);
 
 // delete
-router.put('/books/:id', verifyToken, deleteBookByID);
+router.delete('/books/:id', verifyToken, deleteBookByID);
 
 
 
@@ -43,7 +43,7 @@ router.get('/reviews/:id', getReviewByID);
 router.put('/reviews/:id', verifyToken, updateReviewByID);
 
 // delete
-router.put('/reviews/:id', verifyToken, deleteReviewByID);
+router.delete('/reviews/:id', verifyToken, deleteReviewByID);
 
 
 
