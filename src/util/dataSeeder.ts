@@ -129,12 +129,7 @@ export async function seedData() {
         }, 
     ];
 
-    await bookModel.insertMany(books);
-
-
     // save book _id from MongoDB
-    await bookModel.insertMany(books);
-    // get books _id from MongoDB
     const savedBooks = await bookModel.insertMany(books) 
 
     // seed for reviews  
@@ -144,7 +139,8 @@ export async function seedData() {
             _createdBy: user1.id,
             rating: 4,
             comment: "Great book",
-        },
+        }
+        ,
         {
             _book: savedBooks[2]._id,
             _createdBy: user1.id,
@@ -164,7 +160,7 @@ export async function seedData() {
             comment: "Great book",
         },
         {
-            _book: savedBooks[5]._id,
+            _book: savedBooks[4]._id,
             _createdBy: user2.id,
             rating: 6,
             comment: "Recommend it",
@@ -180,7 +176,8 @@ export async function seedData() {
             _createdBy: user2.id,
             rating: 8,
             comment: "Loved it",
-        },
+        }
+        
         
     ];
 
