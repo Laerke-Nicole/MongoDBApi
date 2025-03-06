@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const dotenv_flow_1 = __importDefault(require("dotenv-flow"));
 const database_1 = require("./repository/database");
 const routes_1 = __importDefault(require("./routes"));
+const documentation_1 = require("./util/documentation");
 const cors_1 = __importDefault(require("cors"));
 dotenv_flow_1.default.config();
 // create express application
@@ -29,6 +30,7 @@ function startServer() {
     // bind routes to the app
     // /api route in url
     app.use('/api', routes_1.default);
+    (0, documentation_1.setupDocs)(app);
     // test db connection
     (0, database_1.testConnection)();
     // PORT has to either be defined in .env file or 4000

@@ -122,12 +122,6 @@ router.post('/books', verifyToken, createBook);
  *       - Book Routes
  *     summary: Get all books
  *     description: Get all books
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Book'
  *     responses:
  *       201:
  *         description: Got all books
@@ -287,12 +281,6 @@ router.post('/reviews', verifyToken, createReview);
  *       - Review Routes
  *     summary: Get all reviews
  *     description: Get all reviews
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Book'
  *     responses:
  *       201:
  *         description: Got all reviews

@@ -50,7 +50,7 @@ function registerUser(req, res) {
                 password: hashedPassword
             });
             const savedUser = yield userObject.save();
-            res.status(200).json({ error: null, data: savedUser._id });
+            res.status(201).json({ error: null, data: savedUser._id });
         }
         catch (error) {
             res.status(500).send("Error registering the user. Error: " + error);
