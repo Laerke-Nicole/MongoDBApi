@@ -145,25 +145,21 @@ router.get('/books', getAllBooks);
  *     tags:
  *       - Book Routes
  *     summary: Get book by ID
- *     description: Get book by ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Book'
+ *     description: Got book by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the book
+ *         schema:
+ *           type: string
  *     responses:
  *       201:
- *         description: Got book by ID
+ *         description: Successfully got the book
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                 _id:
- *                   type: string
+ *               $ref: '#/components/schemas/Book'
  */
 router.get('/books/:id', getBookByID);
 
@@ -304,25 +300,21 @@ router.get('/reviews', getAllReviews);
  *     tags:
  *       - Review Routes
  *     summary: Get review by ID
- *     description: Get review by ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Review'
+ *     description: Got review by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the review
+ *         schema:
+ *           type: string
  *     responses:
  *       201:
- *         description: Got review by ID
+ *         description: Successfully got the review
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                 _id:
- *                   type: string
+ *               $ref: '#/components/schemas/Review'
  */
 router.get('/reviews/:id', getReviewByID);
 
