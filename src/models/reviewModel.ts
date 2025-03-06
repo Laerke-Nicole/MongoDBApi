@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Query } from 'mongoose';
 import { Review } from '../interfaces/review';
 
 const reviewSchema = new Schema<Review>({
@@ -9,11 +9,9 @@ const reviewSchema = new Schema<Review>({
     createdAt: { type: Date, default: Date.now }
 });
 
-
-
-// define how its being updated in mongoose
+// Define how it's being updated in Mongoose
 type UpdateQuery<T> = {
-    [key: string]: any;
+    [key in keyof Partial<T>]?: unknown;
 } & {
     __v?: number;
     $set?: Partial<T> & { __v?: number };
@@ -21,10 +19,9 @@ type UpdateQuery<T> = {
     $inc?: { __v?: number };
 };
 
-
-// define review schema in mongoose  
-reviewSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
-    const update = this.getUpdate() as UpdateQuery<T>;
+// Pre-hook to handle version increment
+reviewSchema.pre<Query<Review, Review>>('findOneAndUpdate', function () {
+    const update = this.getUpdate() as UpdateQuery<Review>;
     if (update.__v != null) {
         delete update.__v;
     }
@@ -40,7 +37,5 @@ reviewSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
     update.$inc = update.$inc || {};
     update.$inc.__v = 1;
 });
-
-
 
 export const reviewModel = model<Review>("Review", reviewSchema);

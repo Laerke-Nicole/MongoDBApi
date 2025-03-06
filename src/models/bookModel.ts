@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Query } from 'mongoose';
 import { Book } from '../interfaces/book';
 
 const bookSchema = new Schema<Book>({
@@ -19,7 +19,7 @@ const bookSchema = new Schema<Book>({
 
 // define how its being updated in mongoose
 type UpdateQuery<T> = {
-    [key: string]: any;
+    [key: string]: unknown;
 } & {
     __v?: number;
     $set?: Partial<T> & { __v?: number };
@@ -29,8 +29,8 @@ type UpdateQuery<T> = {
 
 
 // define book schema in mongoose  
-bookSchema.pre('findOneAndUpdate', function <T extends Document>(this: any) {
-    const update = this.getUpdate() as UpdateQuery<T>;
+bookSchema.pre<Query<Book, Book>>('findOneAndUpdate', function () {
+    const update = this.getUpdate() as UpdateQuery<Book>;
     if (update.__v != null) {
         delete update.__v;
     }
