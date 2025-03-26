@@ -6,3 +6,9 @@ node_modules
 
 # Ignore all files in a folder
 node_modules/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
