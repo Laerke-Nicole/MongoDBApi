@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { createBook, getAllBooks, getBookByID, updateBookByID, deleteBookByID } from './controllers/bookController';
 import { createReview, getAllReviews, getReviewByID, updateReviewByID, deleteReviewByID } from './controllers/reviewController';
 import { registerUser, loginUser, verifyToken } from './controllers/authController';
+import { startCron } from './controllers/devToolsController';
 
 const router: Router = Router();
 
@@ -21,6 +22,25 @@ const router: Router = Router();
 router.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello, world!');
 });
+
+
+/**
+ * @swagger
+ * /start-cron:
+ *   get:
+ *     tags:
+ *       - Start Cron Jobs
+ *     summary: Starts the cron job that keep render alive
+ *     description: Starts the cron job that keep render alive
+ *     responses:
+ *       200:
+ *         description: Response from the cron job
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array               
+ */
+router.get('/start-cron', startCron);
 
 // auth
 // register a user
