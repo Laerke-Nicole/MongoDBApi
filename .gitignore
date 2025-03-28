@@ -1,5 +1,7 @@
 # Ignore a file
 .env
+.env.development
+.env.test
 
 # Ignore a folder
 node_modules

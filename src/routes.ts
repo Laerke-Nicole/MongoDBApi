@@ -20,7 +20,7 @@ const router: Router = Router();
  *         description: Hello, world!
  */
 router.get('/', (req: Request, res: Response) => {
-    res.status(200).send('Hello, world!');
+    res.status(200).send({ message: 'Hello world!' });
 });
 
 
