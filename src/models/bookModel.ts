@@ -5,7 +5,7 @@ const bookSchema = new Schema<Book>({
     title: { type: String, required: true, min: 6, max: 255 },
     author: { type: String, required: true, min: 6, max: 255 },
     description: { type: String, required: true, min: 6, max: 1024 },
-    genre: { type: String, required: true, min: 6, max: 255 },
+    genre: { type: String, required: true, min: 3, max: 255 },
     imageURL: { type: String, required: true },
     releaseYear: { type: Number, required: true, min: 1000, max: 9999 },
     price: { type: Number, required: true, min: 1, max: 5000 },

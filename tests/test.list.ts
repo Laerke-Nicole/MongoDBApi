@@ -5,6 +5,7 @@ process.env.NODE_ENV = 'test';
 import { test } from '@playwright/test';
 import health from './health.test';
 import userTestCollection from './user.test';
+import bookTestCollection from './book.test';
 
 import { userModel } from '../src/models/userModel';
 import { bookModel } from '../src/models/bookModel';
@@ -44,3 +45,4 @@ setup();
 // run tests
 test.describe(health);
 test.describe(userTestCollection);
+test.describe(bookTestCollection);
