@@ -70,34 +70,36 @@ function seedData() {
         user2.email = faker_1.faker.internet.email();
         user2.password = passwordHash;
         yield user2.save();
-        // seed for books  
-        const books = [
-            {
+        // seed for books 
+        const books = [];
+        for (let i = 0; i < 10; i++) {
+            books.push({
                 title: faker_1.faker.lorem.words(),
-                author: faker_1.faker.person.firstName(),
-                description: faker_1.faker.string.alpha(),
+                author: faker_1.faker.person.fullName(),
+                description: faker_1.faker.lorem.words(),
                 genre: faker_1.faker.lorem.word(),
                 imageURL: faker_1.faker.image.url(),
                 releaseYear: faker_1.faker.date.past({ years: 50 }).getFullYear(),
-                price: faker_1.faker.number.int(),
-                stock: faker_1.faker.number.int(),
+                price: faker_1.faker.number.int({ min: 1, max: 5000 }),
+                stock: faker_1.faker.number.int({ min: 0, max: 500 }),
                 discount: true,
                 discountPct: faker_1.faker.number.int(),
                 isHidden: false,
                 _createdBy: user2.id,
-            },
-        ];
+            });
+        }
         // save book _id from MongoDB
         const savedBooks = yield bookModel_1.bookModel.insertMany(books);
         // seed for reviews  
-        const reviews = [
-            {
+        const reviews = [];
+        for (let i = 0; i < 10; i++) {
+            reviews.push({
                 _book: savedBooks[0]._id,
                 _createdBy: user1.id,
-                rating: faker_1.faker.number.int(),
-                comment: faker_1.faker.string.alpha(),
-            },
-        ];
+                rating: faker_1.faker.number.int({ min: 1, max: 10 }),
+                comment: faker_1.faker.lorem.words(),
+            });
+        }
         yield reviewModel_1.reviewModel.insertMany(reviews);
         console.log("Seeded data successfully.");
     });

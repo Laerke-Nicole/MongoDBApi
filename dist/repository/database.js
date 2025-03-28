@@ -38,7 +38,7 @@ function connectToDB() {
             yield mongoose_1.default.connect(process.env.DBHOST);
             if (mongoose_1.default.connection.db) {
                 yield mongoose_1.default.connection.db.admin().command({ ping: 1 });
-                console.log('Connected to database');
+                // console.log('Connected to database');
             }
             else {
                 throw new Error("Error when connecting to database");
@@ -55,7 +55,7 @@ function disconnectToDB() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.disconnect();
-            console.log('Disconnected database');
+            // console.log('Disconnected database');
         }
         catch (error) {
             console.log("Error disconnecting database: " + error);

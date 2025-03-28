@@ -4,6 +4,7 @@ const express_1 = require("express");
 const bookController_1 = require("./controllers/bookController");
 const reviewController_1 = require("./controllers/reviewController");
 const authController_1 = require("./controllers/authController");
+const devToolsController_1 = require("./controllers/devToolsController");
 const router = (0, express_1.Router)();
 /**
  * @swagger
@@ -18,8 +19,25 @@ const router = (0, express_1.Router)();
  *         description: Hello, world!
  */
 router.get('/', (req, res) => {
-    res.status(200).send('Hello, world!');
+    res.status(200).send({ message: 'Hello world!' });
 });
+/**
+ * @swagger
+ * /start-cron:
+ *   get:
+ *     tags:
+ *       - Start Cron Jobs
+ *     summary: Starts the cron job that keep render alive
+ *     description: Starts the cron job that keep render alive
+ *     responses:
+ *       200:
+ *         description: Response from the cron job
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ */
+router.get('/start-cron', devToolsController_1.startCron);
 // auth
 // register a user
 /**

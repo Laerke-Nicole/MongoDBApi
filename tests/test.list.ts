@@ -9,8 +9,6 @@ import userTestCollection from './user.test';
 import { userModel } from '../src/models/userModel';
 import { bookModel } from '../src/models/bookModel';
 
-import {  }
-
 import dotenvFlow from 'dotenv-flow' // read dotenv
 import { connectToDB, disconnectToDB } from '../src/repository/database';
 dotenvFlow.config();
