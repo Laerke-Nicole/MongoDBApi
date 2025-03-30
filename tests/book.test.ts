@@ -64,6 +64,7 @@ export default function bookTestCollection() {
         json = await response.json();
         const receivedBook = json[0];
 
+        // what to expect in the test
         expect(receivedBook.title).toEqual(receivedBook.title);
         expect(receivedBook.description).toEqual(receivedBook.description);
 
