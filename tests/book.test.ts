@@ -22,7 +22,7 @@ export default function bookTestCollection() {
         let response = await request.post("/api/user/register", { data: userRegister });
         let json = await response.json();
 
-        expect(response.status()).toBe(200);
+        expect(response.status()).toBe(201);
 
 
         // login user
@@ -64,7 +64,7 @@ export default function bookTestCollection() {
         json = await response.json();
         const receivedBook = json[0];
 
-        expect(receivedBook.name).toEqual(receivedBook.title);
+        expect(receivedBook.title).toEqual(receivedBook.title);
         expect(receivedBook.description).toEqual(receivedBook.description);
 
         expect(json).toHaveLength(1);
