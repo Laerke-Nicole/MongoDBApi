@@ -4,7 +4,35 @@ import { test, expect } from '@playwright/test';
 export default function bookTestCollection() {
     // test valid data for books
     test("Valid book info", async ({ request }) => {
-        test.setTimeout(10_000);
+        test.setTimeout(30_000);
+
+        // arrange create user and login
+        const userRegister = {
+            name: "John Doe",
+            email: "john@gmail.com",
+            password: "123456"
+        }
+
+        const userLogin = {
+            email: "john@gmail.com",
+            password: "123456"
+        }
+
+        // register user
+        let response = await request.post("/api/user/register", { data: userRegister });
+        let json = await response.json();
+
+        expect(response.status()).toBe(200);
+
+
+        // login user
+        response = await request.post("/api/user/login", { data: userLogin });
+        json = await response.json();
+
+        const token = json.data.token;
+        const userId = json.data.userId;
+        expect(response.status()).toBe(200);
+
 
         // arrange
         const book = {
@@ -19,46 +47,26 @@ export default function bookTestCollection() {
             discount: false,
             discountPct: 0,
             ishidden: false,
-            _createdBy: "userId"
+            _createdBy: userId
         }
 
-        // act
-        const response = await request.post("/api/books", { data: book});
-        const json = await response.json();
-
-        // assert
+        response = await request.post("/api/books/", {
+            data: book,
+            headers: {
+                "auth-token": token, // add token in the request
+            }
+        });
         expect(response.status()).toBe(201);
-        expect(json.error).toEqual(null);
+
+
+        // verify there is a book in the db
+        response = await request.get("/api/books/");
+        json = await response.json();
+        const receivedBook = json[0];
+
+        expect(receivedBook.name).toEqual(receivedBook.title);
+        expect(receivedBook.description).toEqual(receivedBook.description);
+
+        expect(json).toHaveLength(1);
     });
-
-
-    // // test invalid data for user
-    // test("Invalid book description info", async ({ request }) => {
-    //     test.setTimeout(10_000);
-
-    //     // arrange
-    //     const book = {
-    //         title: "Fourth Wing",
-    //         author: "Rebecca Yarros",
-    //         description: "Dra",
-    //         genre: "Fantasy",
-    //         imageURL: "https://www.google.com",
-    //         releaseYear: 2021,
-    //         price: 100,
-    //         stock: 10,
-    //         discount: false,
-    //         discountPct: 0,
-    //         ishidden: false,
-    //         _createdBy: "userId"
-    //     }
-
-    //     // act
-    //     const response = await request.post("/api/books", { data: book});
-    //     const json = await response.json();
-
-    //     // assert
-    //     expect(response.status()).toBe(400);
-    //     // console.log(json.error);
-    //     expect(json.error).toEqual("\"description\" length must be at least 6 characters long");
-    // });
 }

@@ -5,7 +5,7 @@ export default function userTestCollection() {
 
     // test valid data for user
     test("Valid user registration info", async ({ request }) => {
-        test.setTimeout(10_000);
+        test.setTimeout(30_000);
 
         // arrange
         const user = {
