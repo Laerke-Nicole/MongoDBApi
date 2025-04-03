@@ -1,1 +1,1 @@
-![GitHub Actions Build Status](https://github.com/Laerke-Nicole/MongoDBApi/actions/workflows/main.yaml/badge.svg)
+![GitHub Actions Build Status](https://github.com/Laerke-Nicole/MongoDBApi/actions/workflows/github/workflows/main.yaml/badge.svg)
