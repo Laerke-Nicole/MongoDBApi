@@ -7,9 +7,7 @@ import cron, { ScheduledTask } from "node-cron";
 import https from "https";
 
 // Settings
-const TOTAL_DURATION_MINUTES = 120; // Total "keep-remote-server-alive" duration 
-const MINUTES_DELTA = 5; // How often should we ping the server
-const cronPattern = "*/" + MINUTES_DELTA + " * * * *"; // Docs here: https://crontab.guru/#*/5_*_*_*_*
+const MINUTES_DELTA = 1;
 const URL = "https://ments-restapi.onrender.com/api/";
 let counter = 0;
 let task: ScheduledTask;
@@ -34,6 +32,15 @@ function stopPingingServer() {
     console.log('Stopped the cron job due to inactivity');
 }
 
+// stop and clear any scheduled tasks
+function cleanUpTasks() {
+    // clean up any existing tasks
+    for (const task of cron.getTasks().values()) {
+        task.stop();
+    }
+    cron.getTasks().clear();
+}
+
 /**
  * 
  * @param req 
@@ -42,15 +49,20 @@ function stopPingingServer() {
 export async function startCron(req: Request, res: Response) {
 
     try {
+        cleanUpTasks();
+
+        const cronPattern = "*/" + MINUTES_DELTA + " * * * *";
+        // Docs here: https://crontab.guru/#*/5_*_*_*_*
+        const totalDuration = parseInt(req.params.duration as string) || 60;
 
         //Initialize the task with the specified cronPattern
-        counter = TOTAL_DURATION_MINUTES;
+        counter = totalDuration; // set counter, so we can output how much time is left
         task = cron.schedule(cronPattern, pingServer, { scheduled: false });
         task.start();
 
-        setTimeout(stopPingingServer, TOTAL_DURATION_MINUTES * 60 * 1000);
+        setTimeout(stopPingingServer, totalDuration * 60 * 1000);
 
-        res.status(200).send("Started cron-job from active route call");
+        res.status(200).send("Started background task (duration:" + totalDuration + " mins)");
     } catch (error) {
         res.status(500).send({ message: error });
     }
