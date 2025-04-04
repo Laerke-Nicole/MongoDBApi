@@ -18,6 +18,10 @@ export function setupDocs(app: Application) {
                 url: 'http://localhost:4000/api',
                 description: 'Development server',
             },
+            {
+                url: 'https://mongodbapi-w61d.onrender.com/api',
+                description: 'Remote server',
+            },
         ],
         components: {
             securitySchemes: {

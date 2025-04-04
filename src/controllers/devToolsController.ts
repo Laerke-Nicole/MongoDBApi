@@ -8,7 +8,7 @@ import https from "https";
 
 // Settings
 const MINUTES_DELTA = 1;
-const URL = "https://ments-restapi.onrender.com/api/";
+const URL = "https://mongodbapi-w61d.onrender.com/api/";
 let counter = 0;
 let task: ScheduledTask;
 
