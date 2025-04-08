@@ -31,13 +31,38 @@ export default function reviewTestCollection() {
 
         const token = json.data.token;
         const userId = json.data.userId;
-        const bookId = json.data.bookId;
         expect(response.status()).toBe(200);
 
+        // create a book first
+        const book = {
+            title: "Fourth Wing",
+            author: "Rebecca Yarros",
+            description: "Dragon academy",
+            genre: "Fantasy",
+            imageURL: "https://www.google.com",
+            releaseYear: 2021,
+            price: 100,
+            stock: 10,
+            discount: false,
+            discountPct: 0,
+            ishidden: false,
+            _createdBy: userId
+        };
+
+        response = await request.post("/api/books/", {
+            data: book,
+            headers: {
+                "auth-token": token
+            }
+        });
+        expect(response.status()).toBe(201);
+        json = await response.json();
+        const bookId = json._id;
+        
 
         // arrange
         const review = {
-            book: bookId,
+            _book: bookId,
             _createdBy: userId,
             rating: 2,
             comment: "Great book"
@@ -58,8 +83,9 @@ export default function reviewTestCollection() {
         const receivedReview = json[0];
 
         // what to expect in the test
-        expect(receivedReview.bookId).toEqual(receivedReview.bookId);
-        expect(receivedReview.rating).toEqual(receivedReview.rating);
+        expect(receivedReview._book).toEqual(bookId); 
+        expect(receivedReview.rating).toEqual(review.rating);
+        expect(receivedReview.comment).toEqual(review.comment);
 
         expect(json).toHaveLength(1);
     });
