@@ -60,11 +60,11 @@ export default function reviewTestCollection() {
         const bookId = json._id;
         
 
-        // arrange
+        // store review
         const review = {
             _book: bookId,
             _createdBy: userId,
-            rating: 2,
+            rating: 5,
             comment: "Great book"
         }
 

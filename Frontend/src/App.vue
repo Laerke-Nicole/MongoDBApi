@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import type { Book } from '../../src/interfaces/book'
+import type { Book } from '../../Backend/src/interfaces/book'
 
 const books = ref<Book[]>([]);
 
