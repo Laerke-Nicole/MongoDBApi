@@ -72,9 +72,6 @@ export default function bookTestCollection() {
     });
 
 
-    
-
-
     // test update book
     test("Updating book info", async ({ request }) => {
         test.setTimeout(30_000);
@@ -149,8 +146,9 @@ export default function bookTestCollection() {
         json = await response.json();
     
         // Assert updated values
-        expect(json.title).toBe("Updated Iron Flame");
-        expect(json.price).toBe(120);
-        expect(json.stock).toBe(15);
+        const receivedBook = json[0];
+        expect(receivedBook.title).toBe("Updated Iron Flame");
+        expect(receivedBook.price).toBe(120);
+        expect(receivedBook.stock).toBe(15);
     });    
 }
