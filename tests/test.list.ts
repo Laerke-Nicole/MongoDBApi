@@ -6,9 +6,11 @@ import { test } from '@playwright/test';
 import health from './health.test';
 import userTestCollection from './user.test';
 import bookTestCollection from './book.test';
+import reviewTestCollection from './review.test';
 
 import { userModel } from '../src/models/userModel';
 import { bookModel } from '../src/models/bookModel';
+import { reviewModel } from '../src/models/reviewModel';
 
 import dotenvFlow from 'dotenv-flow' // read dotenv
 import { connectToDB, disconnectToDB } from '../src/repository/database';
@@ -21,6 +23,7 @@ function setup() {
             await connectToDB();
             await userModel.deleteMany({});
             await bookModel.deleteMany({});
+            await reviewModel.deleteMany({});
         }
         finally {
             await disconnectToDB();
@@ -33,6 +36,7 @@ function setup() {
             await connectToDB();
             await userModel.deleteMany({});
             await bookModel.deleteMany({});
+            await reviewModel.deleteMany({});
         }
         finally {
             await disconnectToDB();
@@ -46,3 +50,4 @@ setup();
 test.describe(health);
 test.describe(userTestCollection);
 test.describe(bookTestCollection);
+test.describe(reviewTestCollection);
