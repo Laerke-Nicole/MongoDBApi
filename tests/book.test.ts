@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-// testing health
+// testing books
 export default function bookTestCollection() {
     // test valid data for books
     test("Valid book info", async ({ request }) => {
@@ -70,6 +70,9 @@ export default function bookTestCollection() {
 
         expect(json).toHaveLength(1);
     });
+
+
+    
 
 
     // test update book
