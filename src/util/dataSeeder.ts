@@ -67,6 +67,7 @@ export async function seedData() {
         imageURL: faker.image.url(),
         releaseYear: faker.date.past({ years: 50 }).getFullYear(),
         isHidden: false,
+        _createdBy: user2.id,
         });
     }
 

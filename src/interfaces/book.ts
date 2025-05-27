@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface Book extends Document {
     id: string;
     title: string;
@@ -7,4 +9,5 @@ export interface Book extends Document {
     imageURL: string;
     releaseYear: number;
     ishidden: boolean;
+    _createdBy: User["id"];
 }

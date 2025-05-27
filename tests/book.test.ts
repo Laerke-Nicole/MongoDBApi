@@ -42,12 +42,7 @@ export default function bookTestCollection() {
             genre: "Fantasy",
             imageURL: "https://www.google.com",
             releaseYear: 2021,
-            price: 100,
-            stock: 10,
-            discount: false,
-            discountPct: 0,
-            ishidden: false,
-            _createdBy: userId
+            ishidden: false
         }
 
         response = await request.post("/api/books/", {
@@ -106,12 +101,7 @@ export default function bookTestCollection() {
             genre: "Fantasy",
             imageURL: "https://www.google.com",
             releaseYear: 2021,
-            price: 100,
-            stock: 10,
-            discount: false,
-            discountPct: 0,
-            ishidden: false,
-            _createdBy: userId
+            ishidden: false
         };
     
         response = await request.post("/api/books/", {
@@ -128,8 +118,7 @@ export default function bookTestCollection() {
         const updatedBook = {
             ...book,
             title: "Updated Iron Flame",
-            price: 120,
-            stock: 15
+            author: "Rebecca Yarros updated"
         };
     
         // update the books data
@@ -148,7 +137,6 @@ export default function bookTestCollection() {
         // Assert updated values
         const receivedBook = json[0];
         expect(receivedBook.title).toBe("Updated Iron Flame");
-        expect(receivedBook.price).toBe(120);
-        expect(receivedBook.stock).toBe(15);
+        expect(receivedBook.author).toBe("Rebecca Yarros updated");
     });    
 }

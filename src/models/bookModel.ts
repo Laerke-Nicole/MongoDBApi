@@ -8,6 +8,7 @@ const bookSchema = new Schema<Book>({
     genre: { type: String, required: true, min: 3, max: 255 },
     imageURL: { type: String, required: true },
     releaseYear: { type: Number, required: true, min: 1000, max: 9999 },
+    _createdBy: { type: String, ref: 'User', required: true },
     ishidden: { type: Boolean, required: false }
 });
 
