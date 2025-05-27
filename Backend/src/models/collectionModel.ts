@@ -1,14 +1,16 @@
 import { Schema, model, Query } from 'mongoose';
-import { Book } from '../interfaces/book';
+import { Collection } from '../interfaces/collection';
 
-const bookSchema = new Schema<Book>({
-    title: { type: String, required: true, min: 6, max: 255 },
-    author: { type: String, required: true, min: 6, max: 255 },
-    description: { type: String, required: true, min: 6, max: 1024 },
-    genre: { type: String, required: true, min: 3, max: 255 },
-    imageURL: { type: String, required: true },
-    releaseYear: { type: Number, required: true, min: 1000, max: 9999 },
-    ishidden: { type: Boolean, required: false }
+const collectionSchema = new Schema<Collection>({
+    userId: { type: String, required: true },
+    bookId: { type: String, required: true },
+    status: {
+        type: String,
+        required: true,
+        enum: ['to-read', 'currently reading', 'read'],
+        default: 'to-read'
+    },
+    addedAt: { type: Date, required: true, default: Date.now }
 });
 
 
@@ -23,9 +25,9 @@ type UpdateQuery<T> = {
 };
 
 
-// define book schema in mongoose  
-bookSchema.pre<Query<Book, Book>>('findOneAndUpdate', function () {
-    const update = this.getUpdate() as UpdateQuery<Book>;
+// define collection schema in mongoose  
+collectionSchema.pre<Query<Collection, Collection>>('findOneAndUpdate', function () {
+    const update = this.getUpdate() as UpdateQuery<Collection>;
     if (update.__v != null) {
         delete update.__v;
     }
@@ -42,4 +44,4 @@ bookSchema.pre<Query<Book, Book>>('findOneAndUpdate', function () {
     update.$inc.__v = 1;
 });
 
-export const bookModel = model<Book>("Book", bookSchema);
+export const collectionModel = model<Collection>("Collection", collectionSchema);

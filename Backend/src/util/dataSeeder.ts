@@ -66,12 +66,7 @@ export async function seedData() {
         genre: faker.lorem.word(),
         imageURL: faker.image.url(),
         releaseYear: faker.date.past({ years: 50 }).getFullYear(),
-        price: faker.number.int({ min: 1, max: 5000 }),
-        stock: faker.number.int({ min: 0, max: 500 }),
-        discount: true,
-        discountPct: faker.number.int(),
         isHidden: false,
-        _createdBy: user2.id,
         });
     }
 
@@ -84,7 +79,7 @@ export async function seedData() {
         reviews.push({
         _book: savedBooks[0]._id,
         _createdBy: user1.id, 
-        rating: faker.number.int({ min: 1, max: 10 }),
+        rating: faker.number.int({ min: 1, max: 5 }),
         comment: faker.lorem.words(),
         });
     }
